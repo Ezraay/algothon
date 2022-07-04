@@ -3,6 +3,7 @@ import pandas as pd
 import time
 from fintech_group import getMyPosition as getPosition
 
+#testing
 nInst = 0
 nt = 0
 
