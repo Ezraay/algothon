@@ -16,8 +16,11 @@ def plot_active_supports(stock_num: int, interval: int, min_dist: int):
     for i in sd.active_supports(stock_num, interval, min_dist):
         plt.axhline(i)
 
-stock_num = 40
+stock_num = 66
 plot_stock(stock_num)
 plot_active_supports(stock_num, 40, 20)
 plt.legend(loc = 9)
 plt.show()
+
+# Interesting stock numbers: 60 downward trend, 80 downward trend, 90 upward trendline at end
+# 66 downward trendline. final price is touching the line.

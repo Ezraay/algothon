@@ -1,0 +1,12 @@
+Make function that tests for trends using moving averages.
+Make function that compares different moving averages.
+Make function that finds trend lines. Make trendline class perhaps.
+Update support function to not remove supports if it is only violated by a very small amount.
+    This amount should be dependant on stock price and volatility.
+    Only do this check in the final interval since it is in the final interval that buying
+    decisions are made with regards to the existance of supports i.e. if support is partially
+    violated in the interval you should still probably buy the stock since that support
+    technically still exists.
+Create unactive support function. Unactive supports are considered relatively less than active
+    supports but are still important.
+Make identicle functions for resistance.
