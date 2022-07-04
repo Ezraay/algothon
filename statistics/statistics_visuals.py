@@ -12,14 +12,12 @@ def plot_stock_moving_avg(stock_num: int, n: int,  end_day: int = sd.num_days):
     plt.plot(x_axis, sd.complete_moving_avg(stock_num, n, sd.num_days), label = "avg " + str(n))
 
 # Plots horizontal lines representing the active resistances for the stock and specified interval.
-def plot_active_resistances(stock_num: int, interval: int):
-    for i in sd.active_resistances(stock_num, interval):
+def plot_active_supports(stock_num: int, interval: int, min_dist: int):
+    for i in sd.active_supports(stock_num, interval, min_dist):
         plt.axhline(i)
 
-
-plot_stock(9)
-plot_active_resistances(9, 30)
-
+stock_num = 40
+plot_stock(stock_num)
+plot_active_supports(stock_num, 40, 20)
 plt.legend(loc = 9)
-
 plt.show()

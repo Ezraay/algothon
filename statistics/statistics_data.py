@@ -26,19 +26,24 @@ def complete_moving_avg(stock_num: int, n: int,  end_day: int = num_days):
 
 # Returns list of "active" resistances. An active resistance is a resistance
 # that has not been violated. List is implicitly ascending. At most one resistance
-# will be retrieved per interval.
-def active_resistances(stock_num: int, interval_size: int, remove_last: bool = True):
+# will be retrieved per interval. Min_dist is the minimum distance between resistances.
+def active_supports(stock_num: int, interval_size: int,  min_dist: int):
     stock_price = list(prices_data[stock_num]) # Stock price on each day.
-    values = [stock_price[0]] # List of the resistances.
+    supports = [(stock_price[0], 0)] # List of the support values and day of occurrance.
     num_intervals = num_days // interval_size
+
     if num_days % interval_size != 0:
         num_intervals += 1
 
+    prev_support_day = -min_dist
     # Builds values.
     for i in range(num_intervals):
+        if len(supports) > 0 and i != 0:
+            prev_support_day = supports[-1][1]
         # Finds minimum stock value in interval.
         day = i * interval_size
         min = stock_price[day]
+        min_day = day
         for j in range(interval_size):
             day = i * interval_size + j
 
@@ -47,17 +52,26 @@ def active_resistances(stock_num: int, interval_size: int, remove_last: bool = T
             
             if stock_price[day] < min:
                 min = stock_price[day]
+                min_day = day
 
-        # Removes violated resistances.
-        while len(values) > 0 and values[-1] > min:
-            values.pop()
+        # Removes violated support.
+        while len(supports) > 0 and supports[-1][0] > min:
+            supports.pop()
         
-        values.append(min)
+        # Ensures no support in final interval.
+        if i < num_intervals - 1:
+            # Appends min to values if sufficient and updates prev_support_day.
+            dist = min_day - prev_support_day
+            print(min_day)
+            if len(supports) == 0 or dist >= min_dist:
+                supports.append((min, min_day))
     
-    # Remove last probably desired since last resistance is often just the final stock price.
-    if remove_last:
-        values.pop()
 
+    # Ensures no support in first interval.
+    if len(supports) > 0 and supports[0][1] < interval_size:
+        supports = supports[1:]
+
+    values = [supports[i][0] for i in range(len(supports))] # Collects the prices of each support.
     return values
 
 
