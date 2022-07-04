@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import time
-from failures import getMyPosition as getPosition
+from fintech_group import getMyPosition as getPosition
 
 nInst = 0
 nt = 0
