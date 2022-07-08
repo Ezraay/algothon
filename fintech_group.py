@@ -12,6 +12,7 @@ def getMyPosition (prcSoFar):
     stats = Statistics(prcSoFar)
     strat = Strategy(stats)
 
-    return strat.new_pos()
+    return strat.new_pos(0.02, 5, 0)
+
 
     
